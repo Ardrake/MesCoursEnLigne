@@ -1,9 +1,6 @@
 <?php
-
 function affiche_navigation($type) {
-
-    if ($type == "magister"){
-        ?>
+    if ($type == "magister"){?>
         <div id="right">
           <?php echo '<p><b><font size="4">Bonjour Magister</font></b></p>';?>
           <ul id="nav">
@@ -14,8 +11,6 @@ function affiche_navigation($type) {
         </div>
         <?php
     }
-
-    
       if ($type == "user"){
         ?>
         <div id="right">
@@ -30,7 +25,6 @@ function affiche_navigation($type) {
         </div>
         <?php
     }
-    
          if ($type == "guest"){
         ?>
         <div id="right">
@@ -43,12 +37,6 @@ function affiche_navigation($type) {
         </div>
         <?php
     }
-    
-    
 }
-
-
-
-
 ?>
 

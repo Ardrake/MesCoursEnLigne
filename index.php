@@ -1,6 +1,7 @@
 <html>
 	<head>
             <meta charset="utf-8" />
+            <title>Mes Cours en Ligne</title>
             <link href="assets/css/style.css" rel="stylesheet" type="text/css" />
 	</head>
         <?php
@@ -15,11 +16,8 @@
             //show_nav_menu();
         }
         if(check_user()){
-            //echo 'nom usager: '.$_SESSION['valid_user'];
             $myStudent = getMyStudent($_SESSION['valid_user']);
-            //echo $myStudent->LastName;
             echo '<p><b><font size="4">Bonjour '.$myStudent->FirstName.'</font></b></p>';
-            //show_nav_menu();
         }
         ?>
         <body>
@@ -54,7 +52,15 @@
                     <div id="left">
                         <div class="article">
                             <h3>Bienvenue a Mes Cours en ligne</h3>
-                            <p>Bla bla bal</p>
+                            <ul>
+                                <li>Un accès 24/7 de n’importe quel ordinateur connecté à internet </li>
+                                <li>Réduit jusqu’à 75 % le temps de formation (1 jour en classe = 2 h à 3 h en ligne)  </li>
+                                <li>Mises à jour et maintien du contenu facile </li>
+                                <li>Disponible en temps voulu </li>
+                            </ul>
+                            <br>
+                            <h2>Veuillez vous connectez ou vous inscrire pour avoir acces a vos cours.</h2>
+                            
                         </div>
                     </div>
                 </div>

@@ -38,7 +38,7 @@ function login($username, $password) {
         }
     } else {
         echo "combinaison usager et mot de passe inexistant";
-        $_SESSION['myCourse'] = getMyCourses('guest');
+        $_SESSION['myCourse'] = getAllCourses();
             return 0;
     }
 }
