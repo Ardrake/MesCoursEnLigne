@@ -55,6 +55,7 @@
                 <div id="left">
                     <div class="article">
                         <h3>La liste des cours offert en ligne</h3>
+                        <hr>
                         
                            <?php
                             if (check_admin_user() == 1){
@@ -63,17 +64,7 @@
                             else if (check_user() == 1){
                                 $myStudent = getMyStudent($_SESSION['valid_user']);
                                 $studentid = $myStudent->StudentID;
-                                $sql = "SELECT * FROM courses 
-                                        left outer join studentscourses ON courses.CourseID =  studentscourses.CourseID
-                                        where StudentID != '".$studentid."'";
-                                $result = mysqli_query($conn,$sql);  
-                                $num_rows = mysqli_num_rows($result); 
-                                
-                                $sql1 = "SELECT * FROM courses 
-                                        left outer join studentscourses ON courses.CourseID =  studentscourses.CourseID
-                                        where StudentID = '".$studentid."'";
-                                $result1 = mysqli_query($conn,$sql1);  
-                                $num_rows1 = mysqli_num_rows($result1); 
+                                //$result = getMyCourses(StudentID);
                                 
                                 //affiche user;
                                 ?>
@@ -81,10 +72,12 @@
                                     <thead>
                                         <tr>
                                             <th><?php 
-                                            while($row = mysqli_fetch_array($result)) {
-                                                    $courseid = $row['CourseID'];
-                                                    $coursename = $row['CourseName'];
-                                                    $price = $row['Price'];
+                                                $mesCours = getAllCourses();
+                                                foreach ($mesCours as $row) {
+                                                    $courseid = $row->id;
+                                                    $coursename = $row->nom;
+                                                    $price = $row->getCout();
+                                                
                                                     echo "<tr><td style='width: 200px; ' >".$courseid."</td>"
                                                             . "<td style='width: 600px;'>".$coursename."</td>"
                                                             . "<td style='width: 200px;'>".$price."</td>"
@@ -96,18 +89,23 @@
                                         </tr>
                                     </thead>
                                 </table>
-                            <h3>La liste des cours a votre compte</h3>
+                            <br>
+                            <br>
+                            <h3>La liste des cours déja à votre compte</h3>
+                            <hr>
                            <table>
                                     <thead>
                                         <tr>
                                             <th><?php 
-                                            while($row = mysqli_fetch_array($result1)) {
-                                                    $courseid = $row['CourseID'];
-                                                    $coursename = $row['CourseName'];
-                                                    $price = $row['Price'];
-                                                    echo "<tr>"
-                                                            . "<td style='width: 200px;'>".$courseid."</td>"
+                                                $mesCours = $myStudent->getCours();
+                                                foreach ($mesCours as $row) {
+                                                    $courseid = $row->id;
+                                                    $coursename = $row->nom;
+                                                    $price = $row->getCout();
+                                                
+                                                    echo "<tr><td style='width: 200px; ' >".$courseid."</td>"
                                                             . "<td style='width: 600px;'>".$coursename."</td>"
+                                                            //. "<td style='width: 600px;'><a href='cour.php?idcour=".$courseid."'>".$coursename."</td>"
                                                             . "<td style='width: 200px;'>".$price."</td>"
                                                             ."<td> <input type=button onClick=".'"'."location.href='cour.php?idcour=".$courseid."'".'"'."value='Mon cour'></td>"
                                                         . "</tr>";

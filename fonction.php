@@ -38,6 +38,7 @@ function login($username, $password) {
         }
     } else {
         echo "combinaison usager et mot de passe inexistant";
+        $_SESSION['myCourse'] = getMyCourses('guest');
             return 0;
     }
 }
@@ -88,8 +89,59 @@ function getMyStudent($username){
         
         while ($obj = mysqli_fetch_array($result)) {
                 $myStudent = new Etudiant($obj[0], $obj[1], $obj[2], $obj[3], $obj[4], $obj[5], $obj[6], $obj[7], $obj[8]);
+                
+                $sql = "SELECT * FROM courses 
+                        left outer join studentscourses ON courses.CourseID =  studentscourses.CourseID
+                        where StudentID = '".$myStudent->StudentID."'";
+                
+                $LesCours = $conn->query($sql);
+                
+                while ($objcours = mysqli_fetch_array($LesCours)) {
+                    $myCours = new Cours($objcours[0], $objcours[1], $objcours[2], $objcours[3]);
+                    $myStudent->ajouteCours($myCours);
+                }
+            }
         }
         return $myStudent;
+    /* free result set */
+    $result->close();
+}
+
+function getAllCourses(){
+    $conn = db_connect();
+    $listeDesCours = array();
+    if (!$conn) {
+      return 0;
+    }
+    else {
+        // retour list des cours étutdian
+        if (check_user() == 1){
+            $myStudent = getMyStudent($_SESSION['valid_user']);
+            $studentid = $myStudent->StudentID;
+            //echo "list de cours pas prit par etudiant";
+            $sql = "SELECT * FROM courses 
+            left outer join studentscourses ON courses.CourseID = studentscourses.CourseID
+            where StudentID != '".$studentid."'";
+        }
+         else {
+             $sql = "SELECT * FROM courses";
+         }
+    }
+    $result = $conn->query($sql);
+                               
+    if (!$result) {
+       return 0;
+    }
+     if ($result->num_rows>0) {
+        
+        while ($obj = mysqli_fetch_array($result)) {
+                $myCours = new Cours($obj[0], $obj[1], $obj[2], $obj[3]);
+                $listeDesCours[] = $myCours;
+                //echo "Ajout de cours dans liste";
+                
+        }
+    //echo "le total est de ".count($listeDesCours)."<br>";
+    return $listeDesCours;    
     }
     /* free result set */
     $result->close();

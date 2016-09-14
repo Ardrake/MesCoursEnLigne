@@ -23,7 +23,6 @@ and open the template in the editor.
         
         <div id="main">
             <div id="content">
-                Ecran du cours <br>
                 <?php
                 require_once('fonction.php');
                 require_once('ClassMesCours.php');
@@ -48,9 +47,7 @@ and open the template in the editor.
                         $courseid = $row['CourseID'];
                         $coursename = $row['CourseName'];
 
-                        echo "# de cour: ".$courseid;
-                        echo "<br>";
-                        echo "Nom du cour: ".$coursename;
+                        echo "<h3>".$courseid." - ".$coursename."</h3>";
                     }
                 ?>
             </div>

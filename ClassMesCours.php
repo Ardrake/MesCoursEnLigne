@@ -47,14 +47,20 @@ class Etudiant {
             echo "Cours NON trouvé <br>";
         }
     }
+    
+    public function getCours()
+    {
+        return $this->listeDesCours;
+    }
+    
 }
 
 class Cours {
     
-    var $id;
-    var $nom;
+    public $id;
+    public $nom;
     var $cout;
-    var $tuteur;
+    public $tuteur;
     
     public function Cours($id, $nom, $cout, $tuteur)
     {
@@ -69,7 +75,7 @@ class Cours {
         return $this->cout;
     }
     
-    public function getCoursNom()
+    public function g22etCoursNom()
     {
         return $this->nom;
     }

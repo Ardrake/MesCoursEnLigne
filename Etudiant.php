@@ -27,8 +27,8 @@
             <div id="content">
             <?php
              if (check_user() == 1){
-
                  affiche_navigation('user');
+                 $myStudent = getMyStudent($_SESSION['valid_user']);
              }
              else {
                  header('Location: index.php');
@@ -37,7 +37,55 @@
                 <div id="left">
                     <div class="article">
                         <h3>Mon Compte Étudiant</h3>
-                        <p>Liste des cours</p>
+                        <h4>Information</h4>
+                        <hr>
+                        
+                        <?php 
+                        echo "Prénom: <b>".$myStudent->FirstName."&nbsp;&nbsp;"."</b> Nom: <b>".$myStudent->LastName."</b></br>";
+                        echo "Addresse: <b>".$myStudent->Address."&nbsp;&nbsp;"."</b> Ville: <b>".$myStudent->City."</b></br>";
+                        echo "Province: <b>".$myStudent->Province."&nbsp;&nbsp;"."</b> Code Postal: <b>".$myStudent->PostalCode."</b></br>";
+                        echo "Nom d'usager: <b>".$myStudent->UserName."&nbsp;&nbsp;"."</b> Couriel: <b>".$myStudent->EmailAddress."</b></br>";
+                        ?>
+                        <hr>
+                        <br>
+                        <h4>Mes Cours</h4>
+                        <hr>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>
+                                        <tr>
+                                            <td style='width: 200px; ' >ID Cours</td>
+                                            <td style='width: 600px;'>Titre</td>
+                                            <td style='width: 200px;'>Tuteur</td>
+                                        </tr>
+                                    </th>
+                                </tr>
+                            </thead>
+                        </table>
+                        <hr>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th><?php 
+                                        $mesCours = $myStudent->getCours();
+                                        foreach ($mesCours as $row) {
+                                            $courseid = $row->id;
+                                            $coursename = $row->nom;
+                                            $tuteur = $row->tuteur;
+
+                                            echo "<tr><td style='width: 200px; ' >".$courseid."</td>"
+                                                    //. "<td style='width: 600px;'>".$coursename."</td>"
+                                                    . "<td style='width: 600px;'><a href='cour.php?idcour=".$courseid."'>".$coursename."</td>"
+                                                    . "<td style='width: 200px;'>".$tuteur."</td>"
+                                                . "</tr>";
+                                    }
+                                    echo "</table>";
+                                    ?></th>
+                                </tr>
+                            </thead>
+                          
+                        </table>
                     </div>
                 </div>
             </div>

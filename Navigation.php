@@ -21,10 +21,10 @@ function affiche_navigation($type) {
         <div id="right">
           <?php echo '<p><b><font size="4">Bonjour '.$_SESSION['myStudent']->FirstName.'</font></b></p>';?>
           <ul id="nav">
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="ListeCours.php">Cours Offert</a></li>
             <li><a href="Etudiant.php">Mon Compte</a></li>
-            <li><a href="achats.php">Achat de cours</a></li>
+            <!--<li><a href="index.php">Accueil</a></li>-->
+            <li><a href="ListeCours.php">Cours Offert</a></li>
+            <!--<li><a href="achats.php">Achat de cours</a></li>-->
             <li><a href="LogOff.php">Deconnexion</a></li>
           </ul>
         </div>

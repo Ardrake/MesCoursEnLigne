@@ -9,6 +9,16 @@ body {
 	margin: 0;
 }
 
+/* Erreur */
+.error {
+    color: #FF0000;
+    border: 0px;
+    background-image: url(../imgs/nav_bg.gif);
+    background-repeat: repeat-x;
+    display: inline;
+    width: 170px;
+    padding: 0px;
+}    
 
 
 a { text-decoration: none; color: #769266; padding: 0; margin: 0; }
@@ -86,7 +96,6 @@ h3 {
 	background-repeat: no-repeat;
 	background-color: #000;
 }
-
 
 
 #main {
@@ -250,5 +259,8 @@ h3 {
 			width: 45%;
 			text-align: right;
 		}
+
+                
+    
 
 
