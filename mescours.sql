@@ -2,10 +2,10 @@
 -- version 4.5.1
 -- http://www.phpmyadmin.net
 --
--- Client :  127.0.0.1
--- Généré le :  Mer 07 Septembre 2016 à 01:47
--- Version du serveur :  10.1.13-MariaDB
--- Version de PHP :  5.6.23
+-- Host: 127.0.0.1
+-- Generation Time: Sep 16, 2016 at 02:30 AM
+-- Server version: 10.1.16-MariaDB
+-- PHP Version: 5.6.24
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -17,13 +17,34 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Base de données :  `mescours`
+-- Database: `mescours`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DATABASE `mescours`;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `achatCours` (IN `studentid` VARCHAR(4), IN `coursid` VARCHAR(4))  NO SQL
+INSERT INTO `studentscourses`(`CourseID`, `StudentID`) 
+VALUES (coursid,studentid)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `InsereCour` (IN `id` VARCHAR(4), IN `nom` VARCHAR(120), IN `price` DECIMAL(14,2), IN `tuteur` VARCHAR(60))  NO SQL
+INSERT INTO `courses`(`CourseID`, `CourseName`, `Price`, `Tutor`) VALUES (id,nom,price,tuteur)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insereEtudiant` (IN `myid` VARCHAR(4), IN `lastname` VARCHAR(60), IN `firstname` VARCHAR(60), IN `address` VARCHAR(150), IN `city` VARCHAR(150), IN `province` VARCHAR(30), IN `postalcode` VARCHAR(7), IN `couriel` VARCHAR(150), IN `usager` VARCHAR(30))  NO SQL
+INSERT INTO `students` (`StudentID`, `LastName`, `FirstName`, `Address`, `City`, `Province`, `PostalCode`, `EmailAddress`, `UserName`) VALUES (myid, lastname, firstname, address, city, province, postalcode, couriel, usager)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insereUser` (IN `usager` VARCHAR(30), IN `mypass` VARCHAR(30))  NO SQL
+INSERT INTO `users`(`UserName`, `Password`, `admin`) 
+VALUES (usager, mypass, 0)$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `courses`
+-- Table structure for table `courses`
 --
 
 CREATE TABLE `courses` (
@@ -34,7 +55,7 @@ CREATE TABLE `courses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Liste des cours ';
 
 --
--- Contenu de la table `courses`
+-- Dumping data for table `courses`
 --
 
 INSERT INTO `courses` (`CourseID`, `CourseName`, `Price`, `Tutor`) VALUES
@@ -45,7 +66,7 @@ INSERT INTO `courses` (`CourseID`, `CourseName`, `Price`, `Tutor`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `students`
+-- Table structure for table `students`
 --
 
 CREATE TABLE `students` (
@@ -54,14 +75,14 @@ CREATE TABLE `students` (
   `FirstName` varchar(30) NOT NULL,
   `Address` varchar(60) DEFAULT NULL,
   `City` varchar(30) DEFAULT NULL,
-  `Province` varchar(2) DEFAULT NULL,
+  `Province` varchar(30) DEFAULT NULL,
   `PostalCode` varchar(7) DEFAULT NULL,
   `EmailAddress` varchar(50) DEFAULT NULL,
   `UserName` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `students`
+-- Dumping data for table `students`
 --
 
 INSERT INTO `students` (`StudentID`, `LastName`, `FirstName`, `Address`, `City`, `Province`, `PostalCode`, `EmailAddress`, `UserName`) VALUES
@@ -72,7 +93,7 @@ INSERT INTO `students` (`StudentID`, `LastName`, `FirstName`, `Address`, `City`,
 -- --------------------------------------------------------
 
 --
--- Structure de la table `studentscourses`
+-- Table structure for table `studentscourses`
 --
 
 CREATE TABLE `studentscourses` (
@@ -81,7 +102,7 @@ CREATE TABLE `studentscourses` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `studentscourses`
+-- Dumping data for table `studentscourses`
 --
 
 INSERT INTO `studentscourses` (`CourseID`, `StudentID`) VALUES
@@ -92,7 +113,7 @@ INSERT INTO `studentscourses` (`CourseID`, `StudentID`) VALUES
 -- --------------------------------------------------------
 
 --
--- Structure de la table `users`
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -102,7 +123,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Contenu de la table `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`UserName`, `Password`, `admin`) VALUES
@@ -112,47 +133,47 @@ INSERT INTO `users` (`UserName`, `Password`, `admin`) VALUES
 ('phoenix9', '5aces', 0);
 
 --
--- Index pour les tables exportées
+-- Indexes for dumped tables
 --
 
 --
--- Index pour la table `courses`
+-- Indexes for table `courses`
 --
 ALTER TABLE `courses`
   ADD PRIMARY KEY (`CourseID`);
 
 --
--- Index pour la table `students`
+-- Indexes for table `students`
 --
 ALTER TABLE `students`
   ADD PRIMARY KEY (`StudentID`),
   ADD UNIQUE KEY `UserName` (`UserName`);
 
 --
--- Index pour la table `studentscourses`
+-- Indexes for table `studentscourses`
 --
 ALTER TABLE `studentscourses`
   ADD PRIMARY KEY (`CourseID`,`StudentID`),
   ADD KEY `studentid` (`StudentID`);
 
 --
--- Index pour la table `users`
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`UserName`);
 
 --
--- Contraintes pour les tables exportées
+-- Constraints for dumped tables
 --
 
 --
--- Contraintes pour la table `students`
+-- Constraints for table `students`
 --
 ALTER TABLE `students`
   ADD CONSTRAINT `username` FOREIGN KEY (`UserName`) REFERENCES `users` (`UserName`);
 
 --
--- Contraintes pour la table `studentscourses`
+-- Constraints for table `studentscourses`
 --
 ALTER TABLE `studentscourses`
   ADD CONSTRAINT `courseid` FOREIGN KEY (`CourseID`) REFERENCES `courses` (`CourseID`),

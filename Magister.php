@@ -33,18 +33,15 @@
                  header('Location: index.php'); 
              }
             ?>
-                
                 <div id="left">
                     <div class="article">
                         <h3>Tâche du Tuteur en ligne</h3>
-                        <p>Liste des cours</p>
+                        <p>Benvenue a la section reservé au Gestionnaire de cours</p>
                     </div>
                 </div>
             </div>
         </div>
         </body>
-
-
 </html>
 
 

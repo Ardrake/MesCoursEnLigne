@@ -1,10 +1,6 @@
 <?php
 require_once('ClassMesCours.php');
 
-function monMenu() {
-    
-}
-
 function login($username, $password) {
 // check username and password with db
   //echo "login user: ".$username." User: ".$password."<br>";
@@ -60,7 +56,7 @@ function check_user() {
 }
 
 function db_connect() {
-   $result = new mysqli('localhost', 'root', '', 'MesCours');
+   $result = new mysqli('localhost', 'dataadmin', 'admin', 'MesCours');
    if (!$result) {
       echo 'erreur connection';
       return false;
@@ -103,7 +99,7 @@ function getMyStudent($username){
             }
         }
         return $myStudent;
-    /* free result set */
+    /* libéré les resultats */
     $result->close();
 }
 
@@ -119,9 +115,7 @@ function getAllCourses(){
             $myStudent = getMyStudent($_SESSION['valid_user']);
             $studentid = $myStudent->StudentID;
             //echo "list de cours pas prit par etudiant";
-            $sql = "SELECT * FROM courses 
-            left outer join studentscourses ON courses.CourseID = studentscourses.CourseID
-            where StudentID != '".$studentid."'";
+            $sql = "SELECT * FROM courses WHERE CourseID NOT IN (SELECT CourseID FROM studentscourses WHERE StudentID = '". $studentid ."')";
         }
          else {
              $sql = "SELECT * FROM courses";
@@ -137,18 +131,15 @@ function getAllCourses(){
         while ($obj = mysqli_fetch_array($result)) {
                 $myCours = new Cours($obj[0], $obj[1], $obj[2], $obj[3]);
                 $listeDesCours[] = $myCours;
-                //echo "Ajout de cours dans liste";
-                
         }
-    //echo "le total est de ".count($listeDesCours)."<br>";
     return $listeDesCours;    
     }
-    /* free result set */
+    /* libéré les resultats */
     $result->close();
 }
 
 function display_login_form() {
-  // dispaly form asking for name and password
+  // affiche formulaire pour le login
 ?>
     <form method="post" action="index.php">
         <h2>Usager:<input type="text" name="username"/>
@@ -171,20 +162,20 @@ function display_login_form() {
          $valide = false;
     }
     if ($valide){
-        //login('magister','signum');
-        //echo "log in valide<br>";
-        //login('imastarr5','eggcel');
         login($_POST["username"], $_POST["password"]);
-        
     }
 }
-
 
   function test_input($data) {
         $data = trim($data);
         $data = stripslashes($data);
         $data = htmlspecialchars($data);
         return $data;
+    }
+    
+    function getMaterielCours($dir){
+        $files = scandir($dir);
+        return $files;
     }
 ?>
 

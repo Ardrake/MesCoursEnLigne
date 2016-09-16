@@ -1,5 +1,5 @@
 <?php
-
+// Classe Mes Cours enligne
 class Etudiant {
     var $StudentID;
     var $LastName;
@@ -51,7 +51,6 @@ class Etudiant {
     {
         return $this->listeDesCours;
     }
-    
 }
 
 class Cours {
@@ -59,40 +58,18 @@ class Cours {
     public $nom;
     var $cout;
     public $tuteur;
-    var $materiel=array();
     
-    public function Cours($id, $nom, $cout, $tuteur, $materiel=array()) {
+    public function Cours($id, $nom, $cout, $tuteur) {
         $this->id = $id;
         $this->nom = $nom;
         $this->cout = $cout;
         $this->tuteur = $tuteur;
-        $this->materiel = $materiel;
     }
     
     public function getCout() {
         return $this->cout;
     }
-    
-    public function ajouteMateriel(Materiel $monMateriel) {
-       $this->listeDesCours[$monMateriel->id] = $monMateriel;
-    }
-    
-    
-    
 }
 
-class Materiel {
-    var $id;
-    var $nom;
-    var $chemin;
-    var $type;
-    
-    public function Materiel($id, $nom, $chemin, $type) {
-        $this->id = $id;
-        $this->nom = $nom;
-        $this->cout = $chemin;
-        $this->tuteur = $type;
-    }
-}
 
 ?>

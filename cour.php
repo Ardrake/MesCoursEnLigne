@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
+affiche les détails du cours enligne
 -->
 <html>
     <head>
@@ -35,6 +33,8 @@ and open the template in the editor.
                     //affiche_navigation('magister');   
                 }
                 else if (check_user() == 1){
+
+                    affiche_navigation('user');
                     $myStudent = getMyStudent($_SESSION['valid_user']);
                     $studentid = $myStudent->StudentID;
                     $sql = "SELECT * FROM courses 
@@ -47,9 +47,28 @@ and open the template in the editor.
                         $courseid = $row['CourseID'];
                         $coursename = $row['CourseName'];
 
-                        echo "<h3>".$courseid." - ".$coursename."</h3>";
+                        echo "<h3>".$courseid." - ".$coursename."</h3><hr>";
+                        
                     }
-                ?>
+                    $files = getMaterielCours(dirname(__FILE__)."\\assets\cours\\".$courseid."\\"); 
+                    //var_dump($files);
+                    ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th><?php 
+                                $lesCours = $files;
+                                $totfiles = count($lesCours)-1;
+
+                                for ($x = 2; $x <= $totfiles; $x++) {
+                                    $matid = $lesCours[$x];
+                                    echo "<tr><td style='width: 200px; ' ><a href=assets\\cours\\$courseid\\$matid>".$matid."</td></tr>";
+                            }
+                            echo "</table>";
+                            ?></th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         </div>
     </body>

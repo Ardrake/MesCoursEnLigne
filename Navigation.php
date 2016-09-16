@@ -4,8 +4,9 @@ function affiche_navigation($type) {
         <div id="right">
           <?php echo '<p><b><font size="4">Bonjour Magister</font></b></p>';?>
           <ul id="nav">
-            <li><a href="index.php">Accueil</a></li>
-            <li><a href="Magister.php">Tache Tuteur enligne</a></li>
+            <li><a href="Magister.php">Gestion</a></li>
+            <li><a href="creerCour.php">Inseré un cours</a></li>
+            <li><a href="uploadMat.php">Téléverser matérial de cours</a></li>
             <li><a href="LogOff.php">Deconnexion</a></li>
           </ul>
         </div>

@@ -53,13 +53,9 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th>
-                                        <tr>
-                                            <td style='width: 200px; ' >ID Cours</td>
-                                            <td style='width: 600px;'>Titre</td>
-                                            <td style='width: 200px;'>Tuteur</td>
-                                        </tr>
-                                    </th>
+                                    <td style='width: 200px; ' >ID Cours</td>
+                                    <td style='width: 600px;'>Titre</td>
+                                    <td style='width: 200px;'>Tuteur</td>
                                 </tr>
                             </thead>
                         </table>
@@ -84,14 +80,10 @@
                                     ?></th>
                                 </tr>
                             </thead>
-                          
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
         </body>
-
-
 </html>
